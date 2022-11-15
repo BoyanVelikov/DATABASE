@@ -12,17 +12,16 @@ USE sql_store;
 -- 	ON o.shipper_id = sh.shipper_id
 -- ORDER BY c.customer_id
 
-SELECT 
+SELECT
+    o.order_id, 
 	o.order_date,
-    o.order_id,
-    c.first_name,
-    s.name,
-    os.name
-FROM customers c
-JOIN orders o
-	ON c.customer_id = o.customer_id
+    c.first_name AS customer,
+    s.name AS shipper,
+    os.name AS status
+FROM orders o
+JOIN customers c
+	ON o.customer_id = c.customer_id
 LEFT JOIN shippers s
 	ON o.shipper_id = s.shipper_id
 JOIN order_statuses os
-
-
+	ON o.status = os.order_status_id
